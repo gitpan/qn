@@ -1,0 +1,51 @@
+NAME
+    qn - Perl extension for quoting and splitting on newlines.
+
+SYNOPSIS
+      use qn;
+
+      @a = qn <<END;
+          word
+          word with spaces
+          another word
+      END
+
+      @b = qn '
+          element one
+          element two
+      ';
+
+      @c = qn "
+          item: $one
+          item: $two
+      ";
+
+DESCRIPTION
+    Quoting similar to qw//. Instead of splitting on whitespace though, qn
+    splits on newlines allowing each element to include whitespace.
+
+    Leading and trailing whitespace is stripped from each element, but
+    whitespace within is left intact.
+
+CAVEATS
+    *   Won't work with delimiters such as ()'s, {}'s, or //'s.
+
+    *   End tag must be fully outdented in here-doc usage. But that's a Perl
+        thing, right?
+
+EXPORT
+    qn()
+
+SEE ALSO
+    qw in perlfunc.
+
+AUTHOR
+    Rick Myers, <rick@jrmyers.net>
+
+COPYRIGHT AND LICENSE
+    Copyright (C) 2008 by Rick Myers.
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself, either Perl version 5.10.0 or, at
+    your option, any later version of Perl 5 you may have available.
+

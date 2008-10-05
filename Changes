@@ -1,0 +1,6 @@
+Revision history for Perl extension qn.
+
+0.01  Sat Sep 27 01:19:19 2008
+	- original version; created by h2xs 1.23 with options
+		-AXn qn
+
