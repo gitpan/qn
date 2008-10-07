@@ -4,11 +4,12 @@ use 5.010000;
 use strict;
 use warnings;
 
-use parent 'Exporter';
+use Exporter;
+our @ISA = qw/Exporter/;
 
 our @EXPORT_OK = qw/qn/;
 our @EXPORT = qw/qn/;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub qn {
 	$_=shift;
@@ -78,7 +79,7 @@ qw in perlfunc.
 
 =head1 AUTHOR
 
-Rick Myers, E<lt>rick@jrmyers.netE<gt>
+Rick Myers, E<lt>jrm@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
