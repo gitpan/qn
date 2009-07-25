@@ -1,7 +1,10 @@
 use Test::More tests => 31;
 BEGIN { use_ok('qn') };
 
-@a = qn "
+use strict;
+use warnings;
+
+my @a = qn "
 asdf
 line with spaces
 bleh
@@ -29,7 +32,7 @@ ok($a[9] eq 'now a line with trailing spaces', $a[9]);
 ok($a[10] eq 'followed by a line with leading spaces', $a[10]);
 ok($a[11] eq 'bzzz', $a[11]);
 
-@b = qn "
+my @b = qn "
 	now lets try one indented
 		indented more
 			and even more
@@ -51,8 +54,8 @@ ok($b[6] eq 'with   multiple   spaces',$b[6]);
 ok($b[7] eq "with\ttabs\tincluded",$b[7]);
 ok($b[8] eq 'done',$b[8]);
 
-$test = 'boo';
-@c = qn "
+my $test = 'boo';
+my @c = qn "
 	test one
 		test	two
 	$test three
@@ -65,7 +68,7 @@ ok($c[2] eq 'boo three',$c[2]);
 ok($c[3] eq 'done',$c[3]);
 
 $test = "line two\nline three";
-@d = qn "
+my @d = qn "
 	one line, then
 	$test
 	and finally,

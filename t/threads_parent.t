@@ -1,10 +1,24 @@
-use Test::More tests => 26;
-BEGIN { use_ok('qn') };
-
 use strict;
 use warnings;
+use Config;
+use Test::More;
 
-my @a = qn <<END;
+BEGIN {
+	if ($Config{useithreads}) {
+		plan tests => 26;
+		use_ok('qn');
+	}
+	else {
+		plan skip_all => 'ithreads not available';
+	}
+}
+
+require threads;
+threads->import;
+
+my $thr = threads->create( sub {1} );
+
+my @a = qn '
 asdf
 line with spaces
 bleh
@@ -17,7 +31,7 @@ weee
 now a line with trailing spaces    
    followed by a line with leading spaces
 bzzz
-END
+';
 
 ok($a[0] eq 'asdf', $a[0]);
 ok($a[1] eq 'line with spaces', $a[1]);
@@ -32,7 +46,7 @@ ok($a[9] eq 'now a line with trailing spaces', $a[9]);
 ok($a[10] eq 'followed by a line with leading spaces', $a[10]);
 ok($a[11] eq 'bzzz', $a[11]);
 
-my @b = qn <<END;
+my @b = qn '
 	now lets try one indented
 		indented more
 			and even more
@@ -42,7 +56,7 @@ my @b = qn <<END;
 		with   multiple   spaces
 	with	tabs	included
 done
-END
+';
 
 ok($b[0] eq 'now lets try one indented',$b[0]);
 ok($b[1] eq 'indented more',$b[1]);
@@ -54,15 +68,17 @@ ok($b[6] eq 'with   multiple   spaces',$b[6]);
 ok($b[7] eq "with\ttabs\tincluded",$b[7]);
 ok($b[8] eq 'done',$b[8]);
 
-my @c = qn <<'END';
+my @c = qn '
 	test one
 		test	two
 	$test three
 	done
-END
+';
 
 ok($c[0] eq 'test one',$c[0]);
 ok($c[1] eq "test\ttwo",$c[1]);
 ok($c[2] eq '$test three',$c[2]);
 ok($c[3] eq 'done',$c[3]);
+
+$thr->join;
 

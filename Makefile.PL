@@ -13,5 +13,8 @@ WriteMakefile(
             MANIFEST.bak qn-*.tar.gz
         ) ],
     },
+    dist => {
+        PREOP => 'pod2text lib/qn.pm > README',
+    },
 
 );

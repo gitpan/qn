@@ -6,4 +6,6 @@ README
 t/double_quote.t
 t/here_doc.t
 t/single_quote.t
+t/threads_child.t
+t/threads_parent.t
 META.yml                                 Module meta-data (added by MakeMaker)
